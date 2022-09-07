@@ -1,5 +1,6 @@
 export class GeneralModels {
-    fixedLengthQueue = [];
+    fixedLengthKeyArrayQueue = [];
+    fixedLengthValueArrayQueue = [];
     fixedLength = 9;
 
 
@@ -7,23 +8,39 @@ export class GeneralModels {
         this.fixedLength = length;
     }
 
-    addItemAndVaryArraySize(item) {
-        this.fixedLengthQueue.push(item);
+    addItemAndVaryArraySize(item: NameValuePair) {
+        console.log(this.fixedLengthKeyArrayQueue.includes(item.key))
+        console.log((item.key))
+        if (!this.fixedLengthKeyArrayQueue.includes(item.key)) {
+
+            this.fixedLengthKeyArrayQueue.push(item.key);
+            this.fixedLengthValueArrayQueue.push(item.value);
+            console.log(this.fixedLengthKeyArrayQueue)
+        }
     }
 
-    addItemToFixedArraySize(item) {
-        this.fixedLengthQueue.push(item);
-        this, this.fixedLengthQueue.shift();
+    addItemToFixedArraySize(item: NameValuePair) {
+        console.log(this.fixedLengthKeyArrayQueue.includes(item.key))
+        console.log((item.key))
+        if (!this.fixedLengthKeyArrayQueue.includes(item.key)) {
+            this.fixedLengthKeyArrayQueue.push(item.key);
+            this.fixedLengthValueArrayQueue.push(item.value);
+            console.log(this.fixedLengthKeyArrayQueue)
+            if (this.fixedLengthKeyArrayQueue.length > this.fixedLength) {
+                this.fixedLengthKeyArrayQueue.shift();
+                this.fixedLengthValueArrayQueue.shift();
+            }
+        }
     }
 
 }
 
 export class NameValuePair {
-    name: string;
+    key: string;
     value: string;
 
     constructor(name: string, value: string) {
-        this.name = name;
+        this.key = name;
         this.value = value;
     }
 }
