@@ -1,2 +1,2 @@
 export const test: string = '';
-export const initialGraphInitCount = 9;
+export const initialGraphInitCount = 10;

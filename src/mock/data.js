@@ -1,33 +1,63 @@
 import {faker} from '@faker-js/faker';
-export const options = {
-    responsive: true,
-    plugins: {
-        legend: {
-            position: 'top',
-        },
-        title: {
-            display: true,
-            text: 'Chart.js Line Chart',
-        },
-    },
-};
+// export const options = {
+//     responsive: true,
+//     plugins: {
+//         legend: {
+//             position: 'top',
+//         },
+//         title: {
+//             display: true,
+//             text: 'Chart.js Line Chart',
+//         },
+//     },
+// };
 
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+const labels = [];
 
 export const data = {
     labels,
     datasets: [
         {
             label: 'Dataset 1',
-            data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-            borderColor: 'rgb(255, 99, 132)',
-            backgroundColor: 'rgba(255, 99, 132, 0.5)',
-        },
-        {
-            label: 'Dataset 2',
-            data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-            borderColor: 'rgb(53, 162, 235)',
-            backgroundColor: 'rgba(53, 162, 235, 0.5)',
-        },
+            data: [],
+            fill: true,
+            backgroundColor: "rgba(75,192,192,0.2)",
+            borderColor: "rgba(75,192,192,1)"
+        }
     ],
+};
+
+export const options = (refreshFunction) => {
+    return {
+        elements: {
+            line: {
+                tension: 0.5
+            }
+        },
+        scales: {
+            x: [
+                {
+                    type: "realtime",
+                    distribution: "linear",
+                    realtime: {
+                        onRefresh: refreshFunction,
+                        delay: 3000
+                    },
+                    ticks: {
+                        stepSize: 1,
+                        maxTicksLimit: 30,
+                        source: "auto",
+                        autoSkip: true
+                    }
+                }
+            ],
+            y: [
+                {
+                    ticks: {
+                        stepSize: 5
+                    }
+                }
+            ]
+        }
+    }
 };
