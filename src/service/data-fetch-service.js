@@ -1,48 +1,22 @@
-// import {AlchemyWeb3} from "@alch/alchemy-web3";
 import {from} from "rxjs";
-//
-// const {createAlchemyWeb3} = require("@alch/alchemy-web3");
-//
-// // Using WebSockets
-// export const alchemyWeb3Connection = () => createAlchemyWeb3(
-//     "wss://eth-mainnet.g.alchemy.com/v2/q-XcEiXre1I0WRwgny8MxxsJN_Tl-GpV",
-// );
-//
-// export const getFeeDataHistory = (web3Connection: AlchemyWeb3) => {
-//     // const alchemyWeb3Connection = createAlchemyWeb3(
-//     //     "wss://eth-mainnet.g.alchemy.com/v2/q-XcEiXre1I0WRwgny8MxxsJN_Tl-GpV",
-//     // );
-//     // from(alchemyWeb3Connection.eth.getFeeHistory(4, "latest", [25, 50, 75])).subscribe(console.log);
-//
-// }
-// ;
 
-import {Network, Alchemy, AlchemyEventType, AssetTransfersCategory} from 'alchemy-sdk';
-import {ethers} from 'ethers';
-import {initialGraphInitCount} from "../models/constants";
-import {GeneralModels, NameValuePair} from "../models/general-models";
+
+import {Network, Alchemy, AssetTransfersCategory} from 'alchemy-sdk';
+import {alchemyAPIKey, initialGraphInitCount} from "../models/constants";
+import { NameValuePair} from "../models/general-models";
 import {createAlchemyWeb3} from "@alch/alchemy-web3";
 
-const tx = 'tsdsdfsdf';
 
 const settings = {
-    apiKey: 'q-XcEiXre1I0WRwgny8MxxsJN_Tl-GpV', // Replace with your Alchemy API Key.
-    network: Network.ETH_MAINNET, // Replace with your network.
+    apiKey: alchemyAPIKey,
+    network: Network.ETH_MAINNET,
 };
 
 const alchemy = new Alchemy(settings);
-
-// alchemy.ws.on(
-//     {
-//         method: 'alchemy_pendingTransactions'
-//     },
-//     res => console.log(res)
-// );
-// 0xdAC17F958D2ee523a2206206994597C13D831ec7
 export const startTransferListenerService = (contractAddress, transferDataQueue, setData) => {
     const {createAlchemyWeb3} = require("@alch/alchemy-web3");
     const web3Imp = createAlchemyWeb3(
-        "wss://eth-mainnet.g.alchemy.com/v2/q-XcEiXre1I0WRwgny8MxxsJN_Tl-GpV"
+        "wss://eth-mainnet.g.alchemy.com/v2/" +alchemyAPIKey
     );
     alchemy.ws.removeAllListeners();
     const initialTransferLogFilter = {
@@ -75,7 +49,7 @@ export const startTransferListenerService = (contractAddress, transferDataQueue,
 export const startBaseFeeService = (transferDataQueue, setData) => {
     const {createAlchemyWeb3} = require("@alch/alchemy-web3");
     const web3Imp = createAlchemyWeb3(
-        "wss://eth-mainnet.g.alchemy.com/v2/q-XcEiXre1I0WRwgny8MxxsJN_Tl-GpV"
+        "wss://eth-mainnet.g.alchemy.com/v2/" + alchemyAPIKey
     );
     from(web3Imp.eth
         .getFeeHistory(initialGraphInitCount, "latest", [90])).subscribe(baseFeeData => {
@@ -109,11 +83,10 @@ export const startGasUsedRatioService = (transferDataQueue, setData) => {
 
     const {createAlchemyWeb3} = require("@alch/alchemy-web3");
     const web3Imp = createAlchemyWeb3(
-        "wss://eth-mainnet.g.alchemy.com/v2/q-XcEiXre1I0WRwgny8MxxsJN_Tl-GpV"
+        "wss://eth-mainnet.g.alchemy.com/v2/" + alchemyAPIKey
     );
     from(web3Imp.eth
         .getFeeHistory(initialGraphInitCount, "latest", [90])).subscribe(gasFeeData => {
-        // console.log(transfer);
         if (gasFeeData?.gasUsedRatio) {
             gasFeeData.gasUsedRatio.forEach((ratio,index) => {
                 if (index === initialGraphInitCount-1) {
@@ -137,14 +110,5 @@ export const startGasUsedRatioService = (transferDataQueue, setData) => {
         })
     );
 
-}
-
-
-const getEthereumFromWindow = () => {
-    const ethereum = window;
-    if (!ethereum) {
-        console.error("MetaMask is not installed. Please consider installing it: https://metamask.io/download.html");
-    }
-    return ethereum;
 }
 
