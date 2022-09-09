@@ -4,6 +4,7 @@ import {from} from "rxjs";
 import {Network, Alchemy, AssetTransfersCategory} from 'alchemy-sdk';
 import {alchemyAPIKey, initialGraphInitCount} from "../models/constants";
 import { NameValuePair} from "../models/general-models";
+// eslint-disable-next-line no-unused-vars
 import {createAlchemyWeb3} from "@alch/alchemy-web3";
 
 
@@ -14,6 +15,7 @@ const settings = {
 
 const alchemy = new Alchemy(settings);
 export const startTransferListenerService = (contractAddress, transferDataQueue, setData) => {
+    // eslint-disable-next-line no-undef
     const {createAlchemyWeb3} = require("@alch/alchemy-web3");
     const web3Imp = createAlchemyWeb3(
         "wss://eth-mainnet.g.alchemy.com/v2/" +alchemyAPIKey
@@ -47,6 +49,7 @@ export const startTransferListenerService = (contractAddress, transferDataQueue,
 }
 
 export const startBaseFeeService = (transferDataQueue, setData) => {
+    // eslint-disable-next-line no-undef
     const {createAlchemyWeb3} = require("@alch/alchemy-web3");
     const web3Imp = createAlchemyWeb3(
         "wss://eth-mainnet.g.alchemy.com/v2/" + alchemyAPIKey
@@ -81,6 +84,7 @@ export const startBaseFeeService = (transferDataQueue, setData) => {
 
 export const startGasUsedRatioService = (transferDataQueue, setData) => {
 
+    // eslint-disable-next-line no-undef
     const {createAlchemyWeb3} = require("@alch/alchemy-web3");
     const web3Imp = createAlchemyWeb3(
         "wss://eth-mainnet.g.alchemy.com/v2/" + alchemyAPIKey

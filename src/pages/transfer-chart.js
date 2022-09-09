@@ -7,8 +7,8 @@ import {Line} from 'react-chartjs-2';
 import {GeneralModels} from "../models/general-models";
 
 
-export const TransferChart = (props: any) => {
-    const chartReference: any = useRef("chart");
+export const TransferChart = (props) => {
+    const chartReference = useRef("chart");
     const [rpcData, setRpcData] = useState(new GeneralModels())
     const [data, setData] = useState(data1)
     useEffect(() => {
