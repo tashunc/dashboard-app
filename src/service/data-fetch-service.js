@@ -59,7 +59,7 @@ export const startBaseFeeService = (transferDataQueue, setData) => {
         if (baseFeeData?.baseFeePerGas) {
             baseFeeData.baseFeePerGas.forEach((baseFee,index) => {
                 console.log(baseFee)
-                if (index === initialGraphInitCount-1) {
+                if (index === initialGraphInitCount) {
                     transferDataQueue.addDataToArray(new NameValuePair(baseFeeData.oldestBlock,  parseInt(baseFee, 16)));
                 } else {
                     transferDataQueue.addDataToArray(new NameValuePair(index,  parseInt(baseFee, 16)));
@@ -93,7 +93,7 @@ export const startGasUsedRatioService = (transferDataQueue, setData) => {
         .getFeeHistory(initialGraphInitCount, "latest", [90])).subscribe(gasFeeData => {
         if (gasFeeData?.gasUsedRatio) {
             gasFeeData.gasUsedRatio.forEach((ratio,index) => {
-                if (index === initialGraphInitCount-1) {
+                if (index === initialGraphInitCount) {
                     transferDataQueue.addDataToArray(new NameValuePair(gasFeeData.oldestBlock,  ratio));
                 } else {
                     transferDataQueue.addDataToArray(new NameValuePair(index,  ratio));
